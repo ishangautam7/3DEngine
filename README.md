@@ -1,7 +1,3 @@
-Here’s an updated version of your `README.md` that includes steps to clone your repository and install Assimp on both Linux and Windows:
-
----
-
 # **Project Setup Guide**
 
 This guide explains how to clone the repository, set up dependencies, and build the project on **Linux** and **Windows**.
