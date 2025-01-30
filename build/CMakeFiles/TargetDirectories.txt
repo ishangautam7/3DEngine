@@ -1,0 +1,3 @@
+/home/ishan/Desktop/graphics/build/CMakeFiles/ComputerGraphics.dir
+/home/ishan/Desktop/graphics/build/CMakeFiles/edit_cache.dir
+/home/ishan/Desktop/graphics/build/CMakeFiles/rebuild_cache.dir
