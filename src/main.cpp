@@ -44,13 +44,13 @@ int main() {
 
     // View matrix (Camera position)
     glm::mat4 view = glm::lookAt(
-        glm::vec3(0.0f, 0.0f, 3.0f),  // Camera position
+        glm::vec3(0.0f, 0.0f, 10.0f),  // Camera position
         glm::vec3(0.0f, 0.0f, 0.0f),  // Look-at point (center)
         glm::vec3(0.0f, 1.0f, 0.0f)   // Up vector
     );
 
     // Load model
-    Model model("/home/ishan/graphics/assests/model.glb");
+    Model model("/home/ishan/graphics/assests/h2.glb");
     if (model.isEmpty()) {
         std::cerr << "Model failed to load!" << std::endl;
         return -1;
@@ -60,10 +60,11 @@ int main() {
     while (!glfwWindowShouldClose(window)) {
         // Clear the screen (both color and depth buffers)
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
         // Use shader before setting uniforms
         shader.use();
+
 
         // Pass transformation matrices to shader
         shader.setMat4("projection", projection);
