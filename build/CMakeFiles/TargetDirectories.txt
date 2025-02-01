@@ -1,3 +1,4 @@
-/home/ishan/Desktop/graphics/build/CMakeFiles/ComputerGraphics.dir
-/home/ishan/Desktop/graphics/build/CMakeFiles/edit_cache.dir
-/home/ishan/Desktop/graphics/build/CMakeFiles/rebuild_cache.dir
+D:/3DEngine/build/CMakeFiles/imgui.dir
+D:/3DEngine/build/CMakeFiles/ComputerGraphics.dir
+D:/3DEngine/build/CMakeFiles/ALL_BUILD.dir
+D:/3DEngine/build/CMakeFiles/ZERO_CHECK.dir
