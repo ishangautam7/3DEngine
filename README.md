@@ -12,7 +12,7 @@ This guide explains how to clone the repository and build the project.
 
 ---
 ## External Libraries
-Clone these repositories inside the `graphics/Libraries/includes` directory:
+Clone these repositories inside the `3DEngine/Libraries/includes` directory:
 
 ### ImGui
 ```bash
@@ -111,7 +111,7 @@ graphics/
 ├── shaders/
 │   └── (GLSL shader files)
 │
-├── assets/
+├── assests/
 │   └── (3D model files)
 ```
 
