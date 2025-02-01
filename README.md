@@ -1,6 +1,5 @@
 # Project Setup Guide
 This guide explains how to clone the repository and build the project.
-
 ---
 ## Clone the Repository
 1. Open a terminal or command prompt.
@@ -9,21 +8,26 @@ This guide explains how to clone the repository and build the project.
    git clone -b 3dengine-working https://github.com/ishangautam7/3DEngine.git
    cd 3DEngine
    ```
-
 ---
 ## External Libraries
 Clone these repositories inside the `3DEngine/Libraries/includes` directory:
-
 ### ImGui
 ```bash
 git clone https://github.com/ocornut/imgui.git
 ```
-
 ### STB
 ```bash
 git clone https://github.com/nothings/stb.git
 ```
-
+### Assimp
+```bash
+git clone https://github.com/assimp/assimp.git
+cd assimp
+mkdir build
+cd build
+cmake ..
+cmake --build .
+```
 ---
 ## Build Instructions
 ```bash
@@ -33,22 +37,18 @@ cd build
 cmake ..
 cmake --build .
 ```
-
 ---
 ## Path Configuration
 The project uses several resource paths that may need to be updated based on your project location:
-
 ### In `main.cpp`:
 Update these paths according to your project location:
 ```cpp
 Shader shader("D:/3DEngine/shaders/vertex.glsl", "D:/3DEngine/shaders/fragment.glsl");
 Model model("D:/3DEngine/assests/colgate.glb");
 ```
-
 Replace `D:/3DEngine` with your actual project path. For example:
 - Linux: `/home/username/3DEngine`
 - Windows: `C:/Users/username/3DEngine`
-
 ---
 ## Complete Folder Structure
 ```
@@ -114,9 +114,9 @@ graphics/
 ├── assests/
 │   └── (3D model files)
 ```
-
 ---
 ## Notes
 - Ensure all dependencies are installed before building.
+- Keep .lib and .dll files in lib folder for compiled dependencies 
 - Check error logs and verify library paths if you encounter build issues.
 - Double-check the resource paths in your code match your actual project structure.
