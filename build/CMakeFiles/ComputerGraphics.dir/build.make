@@ -76,71 +76,71 @@ CMakeFiles/ComputerGraphics.dir/src/main.cpp.o: CMakeFiles/ComputerGraphics.dir/
 CMakeFiles/ComputerGraphics.dir/src/main.cpp.o: /home/ishan/Desktop/graphics/src/main.cpp
 CMakeFiles/ComputerGraphics.dir/src/main.cpp.o: CMakeFiles/ComputerGraphics.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ishan/Desktop/graphics/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/ComputerGraphics.dir/src/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ComputerGraphics.dir/src/main.cpp.o -MF CMakeFiles/ComputerGraphics.dir/src/main.cpp.o.d -o CMakeFiles/ComputerGraphics.dir/src/main.cpp.o -c /home/ishan/Desktop/graphics/src/main.cpp
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ComputerGraphics.dir/src/main.cpp.o -MF CMakeFiles/ComputerGraphics.dir/src/main.cpp.o.d -o CMakeFiles/ComputerGraphics.dir/src/main.cpp.o -c /home/ishan/Desktop/graphics/src/main.cpp
 
 CMakeFiles/ComputerGraphics.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ComputerGraphics.dir/src/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ishan/Desktop/graphics/src/main.cpp > CMakeFiles/ComputerGraphics.dir/src/main.cpp.i
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ishan/Desktop/graphics/src/main.cpp > CMakeFiles/ComputerGraphics.dir/src/main.cpp.i
 
 CMakeFiles/ComputerGraphics.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ComputerGraphics.dir/src/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ishan/Desktop/graphics/src/main.cpp -o CMakeFiles/ComputerGraphics.dir/src/main.cpp.s
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ishan/Desktop/graphics/src/main.cpp -o CMakeFiles/ComputerGraphics.dir/src/main.cpp.s
 
 CMakeFiles/ComputerGraphics.dir/src/glad.c.o: CMakeFiles/ComputerGraphics.dir/flags.make
 CMakeFiles/ComputerGraphics.dir/src/glad.c.o: /home/ishan/Desktop/graphics/src/glad.c
 CMakeFiles/ComputerGraphics.dir/src/glad.c.o: CMakeFiles/ComputerGraphics.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ishan/Desktop/graphics/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/ComputerGraphics.dir/src/glad.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/ComputerGraphics.dir/src/glad.c.o -MF CMakeFiles/ComputerGraphics.dir/src/glad.c.o.d -o CMakeFiles/ComputerGraphics.dir/src/glad.c.o -c /home/ishan/Desktop/graphics/src/glad.c
+	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/ComputerGraphics.dir/src/glad.c.o -MF CMakeFiles/ComputerGraphics.dir/src/glad.c.o.d -o CMakeFiles/ComputerGraphics.dir/src/glad.c.o -c /home/ishan/Desktop/graphics/src/glad.c
 
 CMakeFiles/ComputerGraphics.dir/src/glad.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/ComputerGraphics.dir/src/glad.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ishan/Desktop/graphics/src/glad.c > CMakeFiles/ComputerGraphics.dir/src/glad.c.i
+	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ishan/Desktop/graphics/src/glad.c > CMakeFiles/ComputerGraphics.dir/src/glad.c.i
 
 CMakeFiles/ComputerGraphics.dir/src/glad.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/ComputerGraphics.dir/src/glad.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ishan/Desktop/graphics/src/glad.c -o CMakeFiles/ComputerGraphics.dir/src/glad.c.s
+	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ishan/Desktop/graphics/src/glad.c -o CMakeFiles/ComputerGraphics.dir/src/glad.c.s
 
 CMakeFiles/ComputerGraphics.dir/src/model.cpp.o: CMakeFiles/ComputerGraphics.dir/flags.make
 CMakeFiles/ComputerGraphics.dir/src/model.cpp.o: /home/ishan/Desktop/graphics/src/model.cpp
 CMakeFiles/ComputerGraphics.dir/src/model.cpp.o: CMakeFiles/ComputerGraphics.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ishan/Desktop/graphics/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/ComputerGraphics.dir/src/model.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ComputerGraphics.dir/src/model.cpp.o -MF CMakeFiles/ComputerGraphics.dir/src/model.cpp.o.d -o CMakeFiles/ComputerGraphics.dir/src/model.cpp.o -c /home/ishan/Desktop/graphics/src/model.cpp
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ComputerGraphics.dir/src/model.cpp.o -MF CMakeFiles/ComputerGraphics.dir/src/model.cpp.o.d -o CMakeFiles/ComputerGraphics.dir/src/model.cpp.o -c /home/ishan/Desktop/graphics/src/model.cpp
 
 CMakeFiles/ComputerGraphics.dir/src/model.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ComputerGraphics.dir/src/model.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ishan/Desktop/graphics/src/model.cpp > CMakeFiles/ComputerGraphics.dir/src/model.cpp.i
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ishan/Desktop/graphics/src/model.cpp > CMakeFiles/ComputerGraphics.dir/src/model.cpp.i
 
 CMakeFiles/ComputerGraphics.dir/src/model.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ComputerGraphics.dir/src/model.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ishan/Desktop/graphics/src/model.cpp -o CMakeFiles/ComputerGraphics.dir/src/model.cpp.s
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ishan/Desktop/graphics/src/model.cpp -o CMakeFiles/ComputerGraphics.dir/src/model.cpp.s
 
 CMakeFiles/ComputerGraphics.dir/src/mesh.cpp.o: CMakeFiles/ComputerGraphics.dir/flags.make
 CMakeFiles/ComputerGraphics.dir/src/mesh.cpp.o: /home/ishan/Desktop/graphics/src/mesh.cpp
 CMakeFiles/ComputerGraphics.dir/src/mesh.cpp.o: CMakeFiles/ComputerGraphics.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ishan/Desktop/graphics/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/ComputerGraphics.dir/src/mesh.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ComputerGraphics.dir/src/mesh.cpp.o -MF CMakeFiles/ComputerGraphics.dir/src/mesh.cpp.o.d -o CMakeFiles/ComputerGraphics.dir/src/mesh.cpp.o -c /home/ishan/Desktop/graphics/src/mesh.cpp
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ComputerGraphics.dir/src/mesh.cpp.o -MF CMakeFiles/ComputerGraphics.dir/src/mesh.cpp.o.d -o CMakeFiles/ComputerGraphics.dir/src/mesh.cpp.o -c /home/ishan/Desktop/graphics/src/mesh.cpp
 
 CMakeFiles/ComputerGraphics.dir/src/mesh.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ComputerGraphics.dir/src/mesh.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ishan/Desktop/graphics/src/mesh.cpp > CMakeFiles/ComputerGraphics.dir/src/mesh.cpp.i
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ishan/Desktop/graphics/src/mesh.cpp > CMakeFiles/ComputerGraphics.dir/src/mesh.cpp.i
 
 CMakeFiles/ComputerGraphics.dir/src/mesh.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ComputerGraphics.dir/src/mesh.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ishan/Desktop/graphics/src/mesh.cpp -o CMakeFiles/ComputerGraphics.dir/src/mesh.cpp.s
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ishan/Desktop/graphics/src/mesh.cpp -o CMakeFiles/ComputerGraphics.dir/src/mesh.cpp.s
 
 CMakeFiles/ComputerGraphics.dir/src/shader.cpp.o: CMakeFiles/ComputerGraphics.dir/flags.make
 CMakeFiles/ComputerGraphics.dir/src/shader.cpp.o: /home/ishan/Desktop/graphics/src/shader.cpp
 CMakeFiles/ComputerGraphics.dir/src/shader.cpp.o: CMakeFiles/ComputerGraphics.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ishan/Desktop/graphics/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/ComputerGraphics.dir/src/shader.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ComputerGraphics.dir/src/shader.cpp.o -MF CMakeFiles/ComputerGraphics.dir/src/shader.cpp.o.d -o CMakeFiles/ComputerGraphics.dir/src/shader.cpp.o -c /home/ishan/Desktop/graphics/src/shader.cpp
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ComputerGraphics.dir/src/shader.cpp.o -MF CMakeFiles/ComputerGraphics.dir/src/shader.cpp.o.d -o CMakeFiles/ComputerGraphics.dir/src/shader.cpp.o -c /home/ishan/Desktop/graphics/src/shader.cpp
 
 CMakeFiles/ComputerGraphics.dir/src/shader.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ComputerGraphics.dir/src/shader.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ishan/Desktop/graphics/src/shader.cpp > CMakeFiles/ComputerGraphics.dir/src/shader.cpp.i
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ishan/Desktop/graphics/src/shader.cpp > CMakeFiles/ComputerGraphics.dir/src/shader.cpp.i
 
 CMakeFiles/ComputerGraphics.dir/src/shader.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ComputerGraphics.dir/src/shader.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ishan/Desktop/graphics/src/shader.cpp -o CMakeFiles/ComputerGraphics.dir/src/shader.cpp.s
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ishan/Desktop/graphics/src/shader.cpp -o CMakeFiles/ComputerGraphics.dir/src/shader.cpp.s
 
 # Object files for target ComputerGraphics
 ComputerGraphics_OBJECTS = \
