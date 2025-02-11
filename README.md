@@ -6,7 +6,7 @@ This guide explains how to clone the repository and build the project.
 1. Open a terminal or command prompt.
 2. Run the following command to clone the repository:
    ```bash
-   git clone -b 3dengine-working https://github.com/ishangautam7/3DEngine.git
+   git clone https://github.com/sakul7-stack/3DEngine.git
    cd 3DEngine
    ```
 ---
