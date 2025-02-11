@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Project Setup Guide
 This guide explains how to clone the repository and build the project.
 ---
@@ -120,3 +121,6 @@ graphics/
 - Keep .lib and .dll files in lib folder for compiled dependencies 
 - Check error logs and verify library paths if you encounter build issues.
 - Double-check the resource paths in your code match your actual project structure.
+=======
+# 3DEngine
+>>>>>>> 2a36a108ffc47a30cefb4dd185dc4ce06995e1cf
