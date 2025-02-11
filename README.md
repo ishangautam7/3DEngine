@@ -1,91 +1,122 @@
-Here’s an updated version of your `README.md` that includes steps to clone your repository and install Assimp on both Linux and Windows:
-
+# Project Setup Guide
+This guide explains how to clone the repository and build the project.
 ---
-
-# **Project Setup Guide**
-
-This guide explains how to clone the repository, set up dependencies, and build the project on **Linux** and **Windows**.
-
----
-
-## **Clone the Repository**
-
+## Clone the Repository
 1. Open a terminal or command prompt.
 2. Run the following command to clone the repository:
    ```bash
-   git clone https://github.com/ishangautam7/graphics.git
-   cd graphics
+   git clone -b 3dengine-working https://github.com/ishangautam7/3DEngine.git
+   cd 3DEngine
    ```
-
 ---
-
-## **Linux Setup**
-
-### **1. Install Dependencies**
-Run the following command to install the required libraries:
+## External Libraries
+Clone these repositories inside the `3DEngine/Libraries/includes` directory:
+### ImGui
 ```bash
-sudo pacman -S base-devel cmake glfw-x11 glm assimp libx11 libxi libxrandr libxxf86vm
+git clone https://github.com/ocornut/imgui.git
 ```
-
-### **2. Build the Project**
+### STB
 ```bash
+git clone https://github.com/nothings/stb.git
+```
+### Assimp
+```bash
+git clone https://github.com/assimp/assimp.git
+cd assimp
 mkdir build
 cd build
 cmake ..
-make
+cmake --build .
 ```
-
-### **3. Run the Executable**
-After building, run the program:
+---
+## Build Instructions
 ```bash
-./ComputerGraphics
+# Empty the build directory first if build directory is present
+mkdir build
+cd build
+cmake ..
+cmake --build .
 ```
-
 ---
-
-## **Windows Setup**
-
-### **1. Install Dependencies**
-- **GLFW**: Download and install from [GLFW's website](https://www.glfw.org/download.html).
-- **Assimp**:
-  - Download the latest version from [Assimp's GitHub](https://github.com/assimp/assimp).
-  - Build Assimp using CMake and Visual Studio (follow the instructions in the Assimp repository).
-  - Alternatively, install Assimp using `vcpkg`:
-    ```cmd
-    vcpkg install assimp
-    ```
-- **OpenGL**: Ensure your graphics drivers are up to date.
-
-### **2. Build the Project**
-1. Open a terminal in the project directory.
-2. Run the following commands:
-   ```bash
-   mkdir build
-   cd build
-   cmake ..
-   cmake --build .
-   ```
-
-### **3. Run the Executable**
-Navigate to the `build` directory and run `ComputerGraphics.exe`.
-
+## Path Configuration
+The project uses several resource paths that may need to be updated based on your project location:
+### In `main.cpp`:
+Update these paths according to your project location:
+```cpp
+Shader shader("D:/3DEngine/shaders/vertex.glsl", "D:/3DEngine/shaders/fragment.glsl");
+Model model("D:/3DEngine/assests/colgate.glb");
+```
+Replace `D:/3DEngine` with your actual project path. For example:
+- Linux: `/home/username/3DEngine`
+- Windows: `C:/Users/username/3DEngine`
 ---
-
-## **Folder Structure**
-- `includes/`: Header files.
-- `src/`: Source code.
-- `build/`: Build directory (created during setup).
-
+## Complete Folder Structure
+```
+graphics/
+│
+├── CMakeLists.txt
+│
+├── Libraries/
+│   ├── includes/
+│   │   ├── stb/
+│   │   │   └── stb_image.h
+│   │   ├── imgui/
+│   │   │   ├── imgui.h
+│   │   │   ├── imgui.cpp
+│   │   │   ├── imgui_demo.cpp
+│   │   │   ├── imgui_draw.cpp
+│   │   │   ├── imgui_tables.cpp
+│   │   │   ├── imgui_widgets.cpp
+│   │   │   └── backends/
+│   │   │       ├── imgui_impl_glfw.cpp
+│   │   │       ├── imgui_impl_glfw.h
+│   │   │       ├── imgui_impl_opengl3.cpp
+│   │   │       └── imgui_impl_opengl3.h
+│   │   ├── glad/
+│   │   │   ├── glad.h
+│   │   │   └── (Other GLAD headers)
+│   │   ├── glfw/
+│   │   │   └── (GLFW headers)
+│   │   ├── glm/
+│   │   │   └── (GLM headers)
+│   │   ├── assimp/
+│   │   │   └── (Assimp headers)
+│   │   └── KHR/
+│           └── khrplatform.h
+│
+├── lib/
+│   ├── Release/
+│   └── Debug/
+│
+├── src/
+│   ├── camera.cpp
+│   ├── camera.h
+│   ├── glad.c
+│   ├── globals.cpp
+│   ├── globals.h
+│   ├── imgui_impl.cpp
+│   ├── imgui_impl.h
+│   ├── input.cpp
+│   ├── input.h
+│   ├── main.cpp
+│   ├── mesh.cpp
+│   ├── mesh.h
+│   ├── model.cpp
+│   ├── model.h
+│   ├── shader.cpp
+│   ├── shader.h
+│   ├── structures.h
+│   └── texture.cpp
+│
+├── shaders/
+│   └── (GLSL shader files)
+│
+├── assests/
+│   └── (3D model files)
+```
 ---
-
-## **Notes**
+## Notes
 - Ensure all dependencies are installed before building.
-- For issues, check the error logs and verify paths to libraries.
-- If using `vcpkg` on Windows, pass the `vcpkg` toolchain file to CMake:
-  ```bash
-  cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=C:/path/to/vcpkg/scripts/buildsystems/vcpkg.cmake
-  ```
-
----
-
-Let me know if you need further adjustments!
+- Keep .lib and .dll files in lib folder for compiled dependencies 
+- Check error logs and verify library paths if you encounter build issues.
+- Double-check the resource paths in your code match your actual project structure.

@@ -1,88 +1,154 @@
-#include <glad/glad.h> // Include glad.h FIRST
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <GLFW/glfw3.h> // Include GLFW after glad.h
 #include <iostream>
+#include <imgui.h>
+#include <imgui_impl_glfw.h>
+#include <imgui_impl_opengl3.h>
 #include "model.h"
 #include "shader.h"
-#include <filesystem>
+#include "imgui_impl.h"
+#include "camera.h"
+#include "input.h"
+#include "globals.h"
+
+// Projection parameters and light position
+float nearPlane = 0.1f;
+float farPlane = 1000.0f;
+glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 
 int main() {
-    // Initialize GLFW
     if (!glfwInit()) {
         std::cerr << "Failed to initialize GLFW" << std::endl;
         return -1;
     }
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_SAMPLES, 4);  // 4x MSAA
 
-    // Create a window
-    GLFWwindow* window = glfwCreateWindow(800, 600, "Model Viewer", nullptr, nullptr);
+    GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+    const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+    GLFWwindow* window = glfwCreateWindow(mode->width, mode->height, "3D Model Viewer", monitor, nullptr);
     if (!window) {
         std::cerr << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
         return -1;
     }
     glfwMakeContextCurrent(window);
-
-    // Initialize Glad
+    
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-        std::cerr << "Failed to initialize Glad" << std::endl;
+        std::cerr << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
+    
+    InitImGui(window);
 
-    // Set up viewport
-    glViewport(0, 0, 800, 600);
+    glfwSetCursorPosCallback(window, mouse_callback);
+    glfwSetMouseButtonCallback(window, mouse_button_callback);
+    glfwSetScrollCallback(window, scroll_callback);
+    glfwSetKeyCallback(window, key_callback);
 
-    // Enable depth testing (important for 3D rendering)
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_MULTISAMPLE);
+    glViewport(0, 0, mode->width, mode->height);
 
-    // Load shaders
-    Shader shader("/home/ishan/graphics/shaders/vertex.glsl", "/home/ishan/graphics/shaders/fragment.glsl");
-
-    // Projection matrix (Perspective projection)
-    glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
-
-    // View matrix (Camera position)
-    glm::mat4 view = glm::lookAt(
-        glm::vec3(0.0f, 0.0f, 3.0f),  // Camera position
-        glm::vec3(0.0f, 0.0f, 0.0f),  // Look-at point (center)
-        glm::vec3(0.0f, 1.0f, 0.0f)   // Up vector
-    );
-
-    // Load model
-    Model model("/home/ishan/graphics/assests/model.glb");
+    Shader shader("D:/3DEngine/shaders/vertex.glsl", "D:/3DEngine/shaders/fragment.glsl");
+    Model model("D:/3DEngine/assests/infernus.glb");
     if (model.isEmpty()) {
-        std::cerr << "Model failed to load!" << std::endl;
+        std::cerr << "Failed to load model" << std::endl;
         return -1;
     }
 
-    // Main loop
     while (!glfwWindowShouldClose(window)) {
-        // Clear the screen (both color and depth buffers)
+        glfwPollEvents();
+        processInput(window);
+        RenderImGui();
+        
+        // Control Panel (30% width)
+        ImGui::SetNextWindowPos(ImVec2(ImGui::GetIO().DisplaySize.x * 0.7f, 0.0f));
+        ImGui::SetNextWindowSize(ImVec2(ImGui::GetIO().DisplaySize.x * 0.3f, ImGui::GetIO().DisplaySize.y));
+        ImGui::Begin("Control Panel", nullptr,
+            ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
+
+        ImGui::Checkbox("Use Perspective", &usePerspective);
+        ImGui::SetNextItemOpen(true, ImGuiCond_Once);
+        if (ImGui::CollapsingHeader("Projection Settings")) {
+            if (usePerspective)
+                ImGui::SliderFloat("FOV", &camera.fov, 1.0f, 120.0f);
+            else
+                ImGui::SliderFloat("Ortho Size", &orthoSize, 1.0f, 100.0f);
+            ImGui::SliderFloat("Near Plane", &nearPlane, 0.1f, 10.0f);
+            ImGui::SliderFloat("Far Plane", &farPlane, 10.0f, 1000.0f);
+        }
+        
+        if (ImGui::CollapsingHeader("Appearance")) {
+            ImGui::ColorEdit3("Background Color", &backgroundColor.r);
+        }
+
+        ImGui::SetNextItemOpen(true, ImGuiCond_Once);
+        if (ImGui::CollapsingHeader("Camera Settings")) {
+            ImGui::SliderFloat3("Position##Camera", &camera.cameraPos.x, -10.0f, 10.0f);
+        }
+
+        if (ImGui::CollapsingHeader("Model Transforms")) {
+            ImGui::SliderFloat3("Position##Model", &modelPosition.x, -5.0f, 5.0f);
+            ImGui::SliderFloat3("Rotation", &modelRotation.x, -180.0f, 180.0f);
+            ImGui::SliderFloat("Scale", &modelScale, 0.1f, 5.0f);
+        }
+
+        ImGui::SetNextItemOpen(true, ImGuiCond_Once);
+        if (ImGui::CollapsingHeader("Lighting")) {
+            ImGui::SliderFloat3("Light Position", &lightPos.x, -10.0f, 10.0f);
+        }
+        
+        ImGui::Checkbox("Wireframe Mode", &wireframeMode);
+        ImGui::End();
+
+        // Render View (70% width)
+        ImGui::SetNextWindowPos(ImVec2(0.0f, 0.0f));
+        ImGui::SetNextWindowSize(ImVec2(ImGui::GetIO().DisplaySize.x * 0.7f, ImGui::GetIO().DisplaySize.y));
+        ImGui::Begin("Render View", nullptr,
+            ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground);
+
+        ImVec2 renderSize = ImGui::GetContentRegionAvail();
+        glViewport(0, 0, static_cast<GLsizei>(renderSize.x), static_cast<GLsizei>(renderSize.y));
+        glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glPolygonMode(GL_FRONT_AND_BACK, wireframeMode ? GL_LINE : GL_FILL);
 
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        // Use shader before setting uniforms
         shader.use();
+        camera.updateCameraVectors();
 
-        // Pass transformation matrices to shader
+        float aspect = renderSize.x / renderSize.y;
+        glm::mat4 projection = usePerspective ?
+            glm::perspective(glm::radians(camera.fov), aspect, nearPlane, farPlane) :
+            glm::ortho(-orthoSize * aspect, orthoSize * aspect, -orthoSize, orthoSize, nearPlane, farPlane);
+            
+        glm::mat4 view = camera.getViewMatrix();
+        glm::mat4 model_matrix = glm::mat4(1.0f);
+        model_matrix = glm::translate(model_matrix, modelPosition);
+        model_matrix = glm::rotate(model_matrix, glm::radians(modelRotation.x), glm::vec3(1, 0, 0));
+        model_matrix = glm::rotate(model_matrix, glm::radians(modelRotation.y), glm::vec3(0, 1, 0));
+        model_matrix = glm::scale(model_matrix, glm::vec3(modelScale));
+        
         shader.setMat4("projection", projection);
         shader.setMat4("view", view);
+        shader.setMat4("model", model_matrix);
+        shader.setVec3("viewPos", camera.cameraPos);
+        shader.setVec3("lightPos", lightPos);
 
-        // Apply model transformation
-        glm::mat4 modelMatrix = glm::mat4(1.0f);
-        modelMatrix = glm::scale(modelMatrix, glm::vec3(0.5f)); // Adjust scale if needed
-        shader.setMat4("model", modelMatrix);
-
-        // Render the model
         model.draw(shader);
+        ImGui::End();
 
-        // Swap buffers and poll events
+        ImGui::Render();
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         glfwSwapBuffers(window);
-        glfwPollEvents();
     }
 
-    // Clean up
+    ShutdownImGui();
     glfwTerminate();
     return 0;
 }
