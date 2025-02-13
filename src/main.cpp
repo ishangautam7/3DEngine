@@ -27,7 +27,7 @@ int main() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_SAMPLES, 4);  // 4x MSAA
+    glfwWindowHint(GLFW_SAMPLES, 4);
 
     GLFWmonitor* monitor = glfwGetPrimaryMonitor();
     const GLFWvidmode* mode = glfwGetVideoMode(monitor);
@@ -56,9 +56,9 @@ int main() {
     glViewport(0, 0, mode->width, mode->height);
 
     Shader shader("D:/3DEngine/shaders/vertex.glsl", "D:/3DEngine/shaders/fragment.glsl");
-    Model model("D:/3DEngine/assests/colgate.glb");
+    Model model(modelPath.c_str());
     if (model.isEmpty()) {
-        std::cerr << "Failed to load model" << std::endl;
+        std::cerr << "Failed to load initial model" << std::endl;
         return -1;
     }
 
@@ -74,6 +74,15 @@ int main() {
             ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 
         ImGui::Checkbox("Use Perspective", &usePerspective);
+        ImGui::InputText("Model Path", &modelPath[0], modelPath.capacity());
+        ImGui::SameLine();
+        if (ImGui::Button("Load Model")) {
+            model = Model(modelPath.c_str());
+            if (model.isEmpty()) {
+                std::cerr << "Failed to load model from: " << modelPath << std::endl;
+            }
+        }
+
         ImGui::SetNextItemOpen(true, ImGuiCond_Once);
         if (ImGui::CollapsingHeader("Projection Settings")) {
             if (usePerspective)
@@ -83,19 +92,24 @@ int main() {
             ImGui::SliderFloat("Near Plane", &nearPlane, 0.1f, 10.0f);
             ImGui::SliderFloat("Far Plane", &farPlane, 10.0f, 1000.0f);
         }
-        ImGui::SetNextItemOpen(true, ImGuiCond_Once);
-        if (ImGui::CollapsingHeader("Camera Settings"))
-    ImGui::SliderFloat3("Position##Camera", &camera.cameraPos.x, -10.0f, 10.0f);
+        
+        if (ImGui::CollapsingHeader("Appearance")) {
+            ImGui::SliderFloat("R", &backgroundColor.r, 0.0f, 1.0f);
+            ImGui::SliderFloat("G", &backgroundColor.g, 0.0f, 1.0f);
+            ImGui::SliderFloat("B", &backgroundColor.b, 0.0f, 1.0f);
+        }
 
-if (ImGui::CollapsingHeader("Model Transforms")) {
-    ImGui::SliderFloat3("Position##Model", &modelPosition.x, -5.0f, 5.0f);
-    ImGui::SliderFloat3("Rotation", &modelRotation.x, -180.0f, 180.0f);
-    ImGui::SliderFloat("Scale", &modelScale, 0.1f, 5.0f);
-}
+        if (ImGui::CollapsingHeader("Model Transforms")) {
+            ImGui::SliderFloat3("Position##Model", &modelPosition.x, -5.0f, 5.0f);
+            ImGui::SliderFloat3("Rotation", &modelRotation.x, -180.0f, 180.0f);
+            ImGui::SliderFloat("Scale", &modelScale, 0.1f, 5.0f);
+        }
 
         ImGui::SetNextItemOpen(true, ImGuiCond_Once);
-        if (ImGui::CollapsingHeader("Lighting"))
+        if (ImGui::CollapsingHeader("Lighting")) {
             ImGui::SliderFloat3("Light Position", &lightPos.x, -10.0f, 10.0f);
+        }
+        
         ImGui::Checkbox("Wireframe Mode", &wireframeMode);
         ImGui::End();
 
@@ -107,7 +121,7 @@ if (ImGui::CollapsingHeader("Model Transforms")) {
 
         ImVec2 renderSize = ImGui::GetContentRegionAvail();
         glViewport(0, 0, static_cast<GLsizei>(renderSize.x), static_cast<GLsizei>(renderSize.y));
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glPolygonMode(GL_FRONT_AND_BACK, wireframeMode ? GL_LINE : GL_FILL);
 
