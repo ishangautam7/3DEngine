@@ -18,6 +18,36 @@ float nearPlane = 0.1f;
 float farPlane = 1000.0f;
 glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 
+// Grid data
+unsigned int gridVAO, gridVBO;
+const float gridSize = 10.0f;
+const int gridDivisions = 40;
+
+void createGrid() {
+    std::vector<float> vertices;
+    const float step = gridSize * 2 / gridDivisions;
+    
+    for(int i = 0; i <= gridDivisions; ++i) {
+        float position = -gridSize + i * step;
+        // Horizontal lines
+        vertices.insert(vertices.end(), {-gridSize, 0.0f, position, gridSize, 0.0f, position});
+        // Vertical lines
+        vertices.insert(vertices.end(), {position, 0.0f, -gridSize, position, 0.0f, gridSize});
+    }
+
+    glGenVertexArrays(1, &gridVAO);
+    glGenBuffers(1, &gridVBO);
+    
+    glBindVertexArray(gridVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, gridVBO);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
+    
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    
+    glBindVertexArray(0);
+}
+
 int main() {
     if (!glfwInit()) {
         std::cerr << "Failed to initialize GLFW" << std::endl;
@@ -44,6 +74,7 @@ int main() {
     }
     
     InitImGui(window);
+    createGrid();
 
     glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetMouseButtonCallback(window, mouse_button_callback);
@@ -93,6 +124,7 @@ int main() {
         }
         
         if (ImGui::CollapsingHeader("Appearance")) {
+            ImGui::Checkbox("Show Grid", &showGrid);
             ImGui::SliderFloat("R", &backgroundColor.r, 0.0f, 1.0f);
             ImGui::SliderFloat("G", &backgroundColor.g, 0.0f, 1.0f);
             ImGui::SliderFloat("B", &backgroundColor.b, 0.0f, 1.0f);
@@ -112,7 +144,6 @@ int main() {
             ImGui::SliderFloat3("Light Position", &lightPos.x, -10.0f, 10.0f);
         }
 
-        // Added Camera Orbit Controls
         if (ImGui::CollapsingHeader("Camera Orbit")) {
             ImGui::SliderFloat("Vertical Orbit", &camera.pitch, -180.0f, 180.0f);
             ImGui::SliderFloat("Horizontal Orbit", &camera.yaw, -180.0f, 180.0f);
@@ -155,6 +186,20 @@ int main() {
         );
         model_matrix = glm::scale(model_matrix, flipScale);
         
+        // Draw grid if enabled
+        if (showGrid) {
+            shader.setMat4("projection", projection);
+            shader.setMat4("view", view);
+            shader.setMat4("model", glm::mat4(1.0f));
+            shader.setVec3("viewPos", camera.cameraPos);
+            shader.setVec3("lightPos", lightPos);
+            shader.setVec3("material.texture_diffuse1", glm::vec3(0.5f)); // Grey color
+            
+            glBindVertexArray(gridVAO);
+            glDrawArrays(GL_LINES, 0, gridDivisions * 4 + 4);
+            glBindVertexArray(0);
+        }
+
         shader.setMat4("projection", projection);
         shader.setMat4("view", view);
         shader.setMat4("model", model_matrix);
