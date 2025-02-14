@@ -9,5 +9,6 @@ bool wireframeMode = false;
 bool flipX = false;  // Add this line
 bool flipY = false;
 bool showGrid = false; 
+bool mouseInputEnabled = false;
 std::string modelPath = "D:/3DEngine/assests/infernus.glb"; // Initial path
 
