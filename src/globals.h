@@ -13,4 +13,5 @@ extern bool flipX;
 extern bool flipY;  
 extern bool showGrid; 
 extern std::string modelPath;
+extern bool mouseInputEnabled;
 #endif // GLOBALS_H
