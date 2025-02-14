@@ -6,68 +6,16 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "globals.h"
 
-bool mouseEnabled = false;
-bool rightMousePressed = false;
-bool leftMousePressed = false;
-
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
     ImGui_ImplGlfw_MouseButtonCallback(window, button, action, mods);
-    if (ImGui::GetIO().WantCaptureMouse)
-        return;
-
-    if (button == GLFW_MOUSE_BUTTON_RIGHT) {
-        if (action == GLFW_PRESS) {
-            rightMousePressed = true;
-            mouseEnabled = true;
-            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-        } else if (action == GLFW_RELEASE) {
-            rightMousePressed = false;
-            mouseEnabled = false;
-            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-        }
-    }
-    if (button == GLFW_MOUSE_BUTTON_LEFT)
-        leftMousePressed = (action == GLFW_PRESS);
 }
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
     ImGui_ImplGlfw_CursorPosCallback(window, xpos, ypos);
-    if (ImGui::GetIO().WantCaptureMouse || !mouseEnabled)
-        return;
-
-    if (camera.firstMouse) {
-        camera.lastX = static_cast<float>(xpos);
-        camera.lastY = static_cast<float>(ypos);
-        camera.firstMouse = false;
-    }
-
-    float offsetX = static_cast<float>(xpos) - camera.lastX;
-    float offsetY = camera.lastY - static_cast<float>(ypos);
-    camera.lastX = static_cast<float>(xpos);
-    camera.lastY = static_cast<float>(ypos);
-
-    offsetX *= 0.1f;
-    offsetY *= 0.1f;
-
-    if (rightMousePressed) {
-        camera.yaw   += offsetX;
-        camera.pitch += offsetY;
-        camera.pitch = glm::clamp(camera.pitch, -89.0f, 89.0f);
-    }
-    else if (leftMousePressed) {
-        modelRotation.y += offsetX;
-        modelRotation.x += offsetY;
-    }
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
     ImGui_ImplGlfw_ScrollCallback(window, xoffset, yoffset);
-    if (ImGui::GetIO().WantCaptureMouse)
-        return;
-
-    float zoomSpeed = camera.cameraDistance * 0.1f;
-    camera.cameraDistance -= static_cast<float>(yoffset) * zoomSpeed;
-    camera.cameraDistance = glm::clamp(camera.cameraDistance, 1.0f, 1000.0f);
 }
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
@@ -91,7 +39,8 @@ void processInput(GLFWwindow* window) {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
 
-    float speed = (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) ? camera.cameraSpeed * 2.0f : camera.cameraSpeed;
+    float speed = (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) ? 
+        camera.cameraSpeed * 2.0f : camera.cameraSpeed;
     
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) modelPosition.z -= speed;
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) modelPosition.z += speed;
