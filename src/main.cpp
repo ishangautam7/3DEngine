@@ -76,6 +76,7 @@ int main() {
     InitImGui(window);
     createGrid();
 
+    // Input callbacks remain registered for ImGui functionality
     glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetMouseButtonCallback(window, mouse_button_callback);
     glfwSetScrollCallback(window, scroll_callback);
@@ -167,7 +168,6 @@ int main() {
 
         shader.use();
         camera.updateCameraVectors();
-
         float aspect = renderSize.x / renderSize.y;
         glm::mat4 projection = usePerspective ?
             glm::perspective(glm::radians(camera.fov), aspect, nearPlane, farPlane) :
