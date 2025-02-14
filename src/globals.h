@@ -11,5 +11,6 @@ extern float modelScale;
 extern bool wireframeMode;
 extern bool flipX; 
 extern bool flipY;  
+extern bool showGrid; 
 extern std::string modelPath;
 #endif // GLOBALS_H
