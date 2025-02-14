@@ -14,7 +14,7 @@
 #include "input.h"
 #include "globals.h"
 
-// Projection parameters and light position
+
 float nearPlane = 0.1f;
 float farPlane = 1000.0f;
 glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
@@ -100,6 +100,11 @@ int main() {
         }
 
         if (ImGui::CollapsingHeader("Model Transforms")) {
+            // Add flip controls here
+            ImGui::Checkbox("Flip X", &flipX);
+            ImGui::SameLine();
+            ImGui::Checkbox("Flip Y", &flipY);
+            
             ImGui::SliderFloat3("Position##Model", &modelPosition.x, -5.0f, 5.0f);
             ImGui::SliderFloat3("Rotation", &modelRotation.x, -180.0f, 180.0f);
             ImGui::SliderFloat("Scale", &modelScale, 0.1f, 5.0f);
@@ -138,7 +143,13 @@ int main() {
         model_matrix = glm::translate(model_matrix, modelPosition);
         model_matrix = glm::rotate(model_matrix, glm::radians(modelRotation.x), glm::vec3(1, 0, 0));
         model_matrix = glm::rotate(model_matrix, glm::radians(modelRotation.y), glm::vec3(0, 1, 0));
-        model_matrix = glm::scale(model_matrix, glm::vec3(modelScale));
+        
+        glm::vec3 flipScale(
+            flipX ? -modelScale : modelScale,
+            flipY ? -modelScale : modelScale,
+            modelScale
+        );
+        model_matrix = glm::scale(model_matrix, flipScale);
         
         shader.setMat4("projection", projection);
         shader.setMat4("view", view);
