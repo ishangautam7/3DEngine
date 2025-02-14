@@ -14,7 +14,6 @@
 #include "input.h"
 #include "globals.h"
 
-
 float nearPlane = 0.1f;
 float farPlane = 1000.0f;
 glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
@@ -100,7 +99,6 @@ int main() {
         }
 
         if (ImGui::CollapsingHeader("Model Transforms")) {
-            // Add flip controls here
             ImGui::Checkbox("Flip X", &flipX);
             ImGui::SameLine();
             ImGui::Checkbox("Flip Y", &flipY);
@@ -110,9 +108,15 @@ int main() {
             ImGui::SliderFloat("Scale", &modelScale, 0.1f, 5.0f);
         }
 
-        ImGui::SetNextItemOpen(true, ImGuiCond_Once);
         if (ImGui::CollapsingHeader("Lighting")) {
             ImGui::SliderFloat3("Light Position", &lightPos.x, -10.0f, 10.0f);
+        }
+
+        // Added Camera Orbit Controls
+        if (ImGui::CollapsingHeader("Camera Orbit")) {
+            ImGui::SliderFloat("Vertical Orbit", &camera.pitch, -180.0f, 180.0f);
+            ImGui::SliderFloat("Horizontal Orbit", &camera.yaw, -180.0f, 180.0f);
+            ImGui::SliderFloat("Distance", &camera.cameraDistance, 1.0f, 100.0f);
         }
         
         ImGui::Checkbox("Wireframe Mode", &wireframeMode);
