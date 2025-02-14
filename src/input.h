@@ -19,5 +19,6 @@ extern float orthoSize;
 extern glm::vec3 modelPosition;
 extern glm::vec3 modelRotation;
 extern float modelScale;
+extern bool mouseInputEnabled;
 
 #endif
