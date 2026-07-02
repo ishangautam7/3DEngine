@@ -8,10 +8,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Add compiler flags for better optimization
 if(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /O2")
-    # Fix MSVCRT conflict
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB:MSVCRT")
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
-    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
+    # Use the dynamic CRT to match the prebuilt glfw3/assimp libraries
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
 endif()
 
 # Include common directories
@@ -46,7 +44,7 @@ add_executable(ComputerGraphics
     src/camera.cpp
     src/input.cpp
     src/imgui_impl.cpp
-    src/globals.cpp  # Add this line
+    src/globals.cpp
 )
 
 
@@ -62,11 +60,12 @@ if(WIN32)
         ${CMAKE_SOURCE_DIR}/Libraries/lib
     )
 
-    target_link_libraries(ComputerGraphics 
-        glfw3 
-        opengl32 
+    target_link_libraries(ComputerGraphics
+        glfw3
+        opengl32
         assimp-vc142-mt
         imgui
+        comdlg32
     )
 
 elseif(UNIX)
@@ -91,9 +90,10 @@ elseif(UNIX)
     )
 endif()
 
-# Enable debugging symbols in Debug mode
-set(CMAKE_BUILD_TYPE Debug)
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g")
+# Default to a Release build if none was specified
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release)
+endif()
 
 # Set output directory relative to project root
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build)

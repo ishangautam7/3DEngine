@@ -88,9 +88,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 }
 
 void processInput(GLFWwindow* window) {
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
-
     float speed = (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) ? camera.cameraSpeed * 2.0f : camera.cameraSpeed;
     
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) modelPosition.z -= speed;
