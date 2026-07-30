@@ -1,87 +1,82 @@
-# **Project Setup Guide**
+# 3DEngine
 
-This guide explains how to clone the repository, set up dependencies, and build the project on **Linux** and **Windows**.
 
----
 
-## **Clone the Repository**
+A small real-time 3D model viewer built with OpenGL. It loads a 3D model
+(`.glb`, `.gltf`, `.obj`, and more via Assimp) and renders it with a Dear ImGui
+control panel for adjusting the camera, projection, lighting, and model
+transform in real time.
 
-1. Open a terminal or command prompt.
-2. Run the following command to clone the repository:
-   ```bash
-   git clone https://github.com/ishangautam7/graphics.git
-   cd graphics
-   ```
+![3D Model Viewer](demo.png)
 
----
+## Features
 
-## **Linux Setup**
+- Runs in a normal resizable window (minimize, maximize, close)
+- "Open Model..." button loads any model at runtime through a file picker
+- Supports many formats via Assimp: glb, gltf, obj, fbx, dae, stl, ply, 3ds, and more
+- Loads embedded textures
+- Orbit camera with mouse look and scroll zoom (yaw, pitch, and distance controls)
+- Perspective and orthographic projection
+- Adjustable FOV, near/far planes, light position, and background color
+- Move, rotate, and scale the model from the UI or the keyboard
+- Ground plane and coordinate axis toggles
+- Wireframe toggle
+- Dear ImGui control panel on the left
 
-### **1. Install Dependencies**
-Run the following command to install the required libraries:
-```bash
-sudo pacman -S base-devel cmake glfw-x11 glm assimp libx11 libxi libxrandr libxxf86vm
+## Download and run (Windows)
+
+1. Download `3DEngine-windows.zip`.
+2. Extract it anywhere.
+3. Double-click `ComputerGraphics.exe`.
+
+Keep `ComputerGraphics.exe`, the `shaders/` and `assests/` folders, and the
+bundled `.dll` files together in the same folder. The runtime DLLs are included,
+so no extra installers are required.
+
+## Controls
+
+Mouse:
+
+- Right-drag: orbit the camera
+- Left-drag: rotate the model
+- Scroll: zoom in and out
+
+Keyboard:
+
+- `W` `A` `S` `D`: move the model along X and Z
+- `Q` `E`: move the model up and down
+- `Z` `X`: scale down and up
+- `F`: toggle wireframe
+- `R`: reset the view
+
+Close the app with the window's close button. Use "Open Model..." in the
+control panel to load a different model file.
+
+## Build from source (Windows)
+
+Requirements:
+
+- MSVC (Visual Studio 2022 Build Tools, "Desktop development with C++")
+- CMake 3.31 or newer
+- Ninja
+
+From a "Developer Command Prompt for VS 2022" (so CMake finds the compiler):
+
+```
+cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+cmake --build build
 ```
 
-### **2. Build the Project**
-```bash
-mkdir build
-cd build
-cmake ..
-make
-```
+The prebuilt GLFW and Assimp libraries under `Libraries/` are MSVC (`vc142`)
+builds, so the project must be compiled with MSVC.
 
-### **3. Run the Executable**
-After building, run the program:
-```bash
-./ComputerGraphics
-```
+## Project layout
 
----
+- `src/` engine and application source
+- `shaders/` GLSL vertex and fragment shaders
+- `assests/` sample models (folder name matches the paths used in code)
+- `Libraries/` bundled third-party headers and libraries
 
-## **Windows Setup**
+## Dependencies
 
-### **1. Install Dependencies**
-- **GLFW**: Download and install from [GLFW's website](https://www.glfw.org/download.html).
-- **Assimp**:
-  - Download the latest version from [Assimp's GitHub](https://github.com/assimp/assimp).
-  - Build Assimp using CMake and Visual Studio (follow the instructions in the Assimp repository).
-  - Alternatively, install Assimp using `vcpkg`:
-    ```cmd
-    vcpkg install assimp
-    ```
-- **OpenGL**: Ensure your graphics drivers are up to date.
-
-### **2. Build the Project**
-1. Open a terminal in the project directory.
-2. Run the following commands:
-   ```bash
-   mkdir build
-   cd build
-   cmake ..
-   cmake --build .
-   ```
-
-### **3. Run the Executable**
-Navigate to the `build` directory and run `ComputerGraphics.exe`.
-
----
-
-## **Folder Structure**
-- `includes/`: Header files.
-- `src/`: Source code.
-- `build/`: Build directory (created during setup).
-
----
-
-## **Notes**
-- Ensure all dependencies are installed before building.
-- For issues, check the error logs and verify paths to libraries.
-- If using `vcpkg` on Windows, pass the `vcpkg` toolchain file to CMake:
-  ```bash
-  cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=C:/path/to/vcpkg/scripts/buildsystems/vcpkg.cmake
-  ```
-
----
-
-Let me know if you need further adjustments!
+GLFW, GLAD, GLM, Assimp, Dear ImGui, and stb_image.

@@ -1,0 +1,48 @@
+# Build output directories
+/build/
+/build_ninja/
+build*/
+cmake-build-*/
+out/
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+CTestTestfile.cmake
+Makefile
+*.ninja
+.ninja_deps
+.ninja_log
+compile_commands.json
+
+# Visual Studio / MSBuild
+.vs/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+
+# Packaged distribution
+/dist/
+*.zip
+
+# Dear ImGui runtime layout
+imgui.ini
+
+# Local build helper and toolchain installer
+build_msvc.bat
+vs_BuildTools.exe
+
+# Editor / IDE
+.vscode/
+.idea/
+
+# Logs and temporary files
+*.log
+run_log.txt
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini

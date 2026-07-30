@@ -1,12 +1,36 @@
-// Fragment Shader (e.g., fragment.glsl)
-#version 450 core
+#version 330 core
+out vec4 FragColor;
 
-out vec4 FragColor;  // Output color
+in vec2 TexCoords;
+in vec3 Normal;
+in vec3 FragPos;
 
-in vec3 FragPos;  // Interpolated position
-in vec3 Normal;   // Interpolated normal
+uniform sampler2D texture_diffuse1;
+uniform vec3 lightPos;
+uniform vec3 viewPos;
 
 void main() {
-    FragColor = vec4(1.0, 0.0, 0.0, 1.0); // Red color
+    // Ambient
+    float ambientStrength = 0.1;
+    vec3 ambient = ambientStrength * vec3(1.0);
+    
+    // Diffuse
+    vec3 norm = normalize(Normal);
+    vec3 lightDir = normalize(lightPos - FragPos);
+    float diff = max(dot(norm, lightDir), 0.0);
+    vec3 diffuse = diff * vec3(1.0);
+    
+    // Specular
+    float specularStrength = 0.5;
+    vec3 viewDir = normalize(viewPos - FragPos);
+    vec3 reflectDir = reflect(-lightDir, norm);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
+    vec3 specular = specularStrength * spec * vec3(1.0);
+    
+    // Texture
+    vec4 texColor = texture(texture_diffuse1, TexCoords);
+    
+    // Combine
+    vec3 result = (ambient + diffuse + specular) * texColor.rgb;
+    FragColor = vec4(result, texColor.a);
 }
-
